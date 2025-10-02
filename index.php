@@ -14,14 +14,12 @@ if (!isset($_SESSION['username'])) {
 // MENGAKSES DATA DARI SESSION
 // Setelah lolos pengecekan, kita bisa akses data user dari session
 $username = $_SESSION['username'];
-$fullname = $_SESSION['fullname'];
 $email = $_SESSION['email'];
 $role = $_SESSION['role'];
 
 // Array asosiatif untuk menyimpan informasi user session
 $userInfo = [
     "username" => $username,
-    "fullname" => $fullname,
     "email" => $email,
     "role" => $role,
     "login_time" => isset($_SESSION['login_time']) ? $_SESSION['login_time'] : 'N/A'
