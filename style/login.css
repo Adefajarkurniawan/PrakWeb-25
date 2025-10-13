@@ -1,0 +1,207 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 450px;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header i {
+    font-size: 4rem;
+    color: #4a90e2;
+    margin-bottom: 15px;
+}
+
+.login-header h1 {
+    color: #333745;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.login-form .form-group {
+    margin-bottom: 20px;
+}
+
+.login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #e1e4e8;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.login-form button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.login-form button[type="submit"]:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+}
+
+.error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+    text-align: center;
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+.credentials-info {
+    background-color: #e7f3ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    border-left: 4px solid #4a90e2;
+}
+
+.credentials-info h3 {
+    color: #4a90e2;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.credentials-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.credentials-info li {
+    padding: 8px 0;
+    color: #555;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(74, 144, 226, 0.2);
+}
+
+.credentials-info li:last-child {
+    border-bottom: none;
+}
+
+.credentials-info strong {
+    color: #333;
+}
+
+/* dark Mode untuk Login */
+body.dark-theme .login-container {
+    background-color: #16213e;
+    color: #eee;
+}
+
+body.dark-theme .login-header h1 {
+    color: #ffd700;
+}
+
+body.dark-theme .login-header p {
+    color: #ccc;
+}
+
+body.dark-theme .login-form label {
+    color: #ccc;
+}
+
+body.dark-theme .login-form input[type="text"],
+body.dark-theme .login-form input[type="password"] {
+    background-color: #0f3460;
+    color: #eee;
+    border-color: #16213e;
+}
+
+body.dark-theme .credentials-info {
+    background-color: rgba(255, 215, 0, 0.1);
+    border-left-color: #ffd700;
+}
+
+body.dark-theme .credentials-info h3 {
+    color: #ffd700;
+}
+
+body.dark-theme .credentials-info li {
+    color: #ccc;
+    border-bottom-color: rgba(255, 215, 0, 0.2);
+}
+
+/* toggle untuk halaman login */
+.theme-toggle-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+}

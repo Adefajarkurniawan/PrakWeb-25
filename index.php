@@ -1,0 +1,266 @@
+<?php
+// MEMULAI SESSION
+<<<<<<< HEAD
+session_start();
+
+// MENGECEK APAKAH USER SUDAH LOGIN
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// MENGHUBUNGKAN KE DATABASE
+require_once 'koneksi.php';
+
+// MENGAKSES DATA DARI SESSION
+=======
+// Session harus dimulai di awal file sebelum HTML apapun
+session_start();
+
+// MENGECEK APAKAH USER SUDAH LOGIN
+// Menggunakan fungsi isset() untuk cek apakah variabel session 'username' sudah di-set
+if (!isset($_SESSION['username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: login.php");
+    exit(); // Hentikan eksekusi script
+}
+
+// MENGAKSES DATA DARI SESSION
+// Setelah lolos pengecekan, kita bisa akses data user dari session
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$role = $_SESSION['role'];
+
+<<<<<<< HEAD
+=======
+// Array asosiatif untuk menyimpan informasi user session
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+$userInfo = [
+    "username" => $username,
+    "email" => $email,
+    "role" => $role,
+    "login_time" => isset($_SESSION['login_time']) ? $_SESSION['login_time'] : 'N/A'
+];
+<<<<<<< HEAD
+
+
+$is_edit_mode = false; 
+$data_to_edit = null;  
+$action_url = 'create.php'; 
+$button_text = 'Simpan Data'; 
+
+// Cek apakah ada parameter 'edit_id' di URL (dikirim saat tombol edit diklik)
+if (isset($_GET['edit_id'])) {
+    $is_edit_mode = true;
+    $action_url = 'edit.php'; 
+    $button_text = 'Update Data'; 
+    
+    $id_to_edit = $_GET['edit_id'];
+    
+    $sql_edit = "SELECT * FROM mahasiswa WHERE id = ?";
+    $stmt_edit = mysqli_prepare($koneksi, $sql_edit);
+    mysqli_stmt_bind_param($stmt_edit, "i", $id_to_edit); 
+    mysqli_stmt_execute($stmt_edit);
+    $result_edit = mysqli_stmt_get_result($stmt_edit);
+    
+    if ($result_edit && mysqli_num_rows($result_edit) > 0) {
+        $data_to_edit = mysqli_fetch_assoc($result_edit);
+    }
+    mysqli_stmt_close($stmt_edit);
+}
+
+
+$sql_mahasiswa = "SELECT id, nim, nama, jurusan FROM mahasiswa ORDER BY nama ASC";
+$result_mahasiswa = mysqli_query($koneksi, $sql_mahasiswa);
+
+=======
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
+    <title>Dasbor Mahasiswa</title>
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+=======
+    
+    <title>Dasbor Mahasiswa</title>
+
+    <link rel="stylesheet" href="style/style.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+<body>
+
+    <header>
+        <h1 id="headerTitle">Dasbor Manajemen Mahasiswa</h1>
+<<<<<<< HEAD
+        <div class="header-buttons">
+            <button id="themeToggle" class="theme-toggle-btn"><span class="theme-icon"><i class="fas fa-moon"></i></span><span class="theme-text">Dark Mode</span></button>
+            <a href="logout.php" class="logout-btn" onclick="return confirm('Apakah Anda yakin ingin logout?')"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a>
+=======
+        
+        <!-- container yang ngewrap 2 button dibawah -->
+        <div class="header-buttons">
+            <!-- Button Toggle Dark Mode -->
+            <button id="themeToggle" class="theme-toggle-btn">
+                <span class="theme-icon"><i class="fas fa-moon"></i></span>
+                <span class="theme-text">Dark Mode</span>
+            </button>
+            
+            <!--  Logout Button === -->
+            <a href="logout.php" class="logout-btn" onclick="return confirm('Apakah Anda yakin ingin logout?')">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </a>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+        </div>
+    </header>
+
+    <main>
+        <div class="form-container">
+<<<<<<< HEAD
+            <h2><?php echo $is_edit_mode ? 'Edit Data Mahasiswa' : 'Tambah Data Mahasiswa'; ?></h2>
+            
+            <form id="mahasiswaForm" method="POST" action="<?php echo $action_url; ?>">
+                
+                <input type="hidden" name="id" value="<?php echo $is_edit_mode ? $data_to_edit['id'] : ''; ?>">
+
+                <div class="form-group">
+                    <label for="nim">NIM:</label>
+                    <input type="text" id="nim" name="nim" placeholder="Masukkan Nomor Induk Mahasiswa" required 
+                           value="<?php echo $is_edit_mode ? htmlspecialchars($data_to_edit['nim']) : ''; ?>">
+=======
+            <h2>Manajemen Data Mahasiswa</h2>
+            
+            <form id="mahasiswaForm">
+                
+                <input type="hidden" id="mahasiswaId" name="id">
+
+                <div class="form-group">
+                    <label for="nim">NIM:</label>
+                    <input type="text" id="nim" name="nim" placeholder="Masukkan Nomor Induk Mahasiswa" required>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+                </div>
+
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+<<<<<<< HEAD
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Lengkap" required
+                           value="<?php echo $is_edit_mode ? htmlspecialchars($data_to_edit['nama']) : ''; ?>">
+=======
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Lengkap" required>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+                </div>
+
+                <div class="form-group">
+                    <label for="jurusan">Jurusan:</label>
+<<<<<<< HEAD
+                    <input type="text" id="jurusan" name="jurusan" placeholder="Contoh: Teknik Informatika" required
+                           value="<?php echo $is_edit_mode ? htmlspecialchars($data_to_edit['jurusan']) : ''; ?>">
+                </div>
+
+                <button type="submit"><?php echo $button_text; ?></button>
+                <?php if ($is_edit_mode): ?>
+                    <a href="index.php" class="cancel-btn">Batal Edit</a>
+                <?php endif; ?>
+=======
+                    <input type="text" id="jurusan" name="jurusan" placeholder="Contoh: Teknik Informatika" required>
+                </div>
+
+                <button type="submit">Simpan Data</button>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+            </form>
+        </div>
+
+        <div class="table-container">
+            <h2>Daftar Mahasiswa</h2>
+<<<<<<< HEAD
+            <div class="session-info">
+                <strong><i class="fas fa-info-circle"></i> Informasi Session:</strong><br>
+                <?php foreach ($userInfo as $key => $value) { echo "<span class='session-key'>" . ucfirst(str_replace('_', ' ', $key)) . ":</span> <strong>" . htmlspecialchars($value) . "</strong><br>"; } ?>
+=======
+            
+            <!-- display session info-->
+            <div class="session-info">
+                <strong><i class="fas fa-info-circle"></i> Informasi Session:</strong><br>
+                <?php
+                foreach ($userInfo as $key => $value) {
+                    echo "<span class='session-key'>";
+                    echo ucfirst(str_replace('_', ' ', $key)); // Ubah key jadi readable
+                    echo ":</span> <strong>" . htmlspecialchars($value) . "</strong><br>";
+                }
+                ?>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+            </div>
+            
+            <table id="mahasiswaTable">
+                <thead>
+                    <tr>
+                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Jurusan</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="mahasiswaTableBody">
+<<<<<<< HEAD
+                    <?php
+                    if ($result_mahasiswa && mysqli_num_rows($result_mahasiswa) > 0) {
+                        while ($mahasiswa = mysqli_fetch_assoc($result_mahasiswa)) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($mahasiswa['nim']) . "</td>";
+                            echo "<td>" . htmlspecialchars($mahasiswa['nama']) . "</td>";
+                            echo "<td>" . htmlspecialchars($mahasiswa['jurusan']) . "</td>";
+                            echo "<td>";
+                            // PERUBAHAN TOMBOL EDIT: Menjadi link <a> yang mengirim ID ke URL
+                            echo '<a href="index.php?edit_id=' . $mahasiswa['id'] . '" class="action-btn edit-btn"><i class="fas fa-edit"></i> Edit</a> ';
+                            echo '<a href="delete.php?id=' . $mahasiswa['id'] . '" class="action-btn delete-btn" onclick="return confirm(\'Apakah Anda yakin ingin menghapus data ini secara permanen?\')"><i class="fas fa-trash"></i> Hapus</a>';
+                            echo "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo '<tr><td colspan="4" style="text-align: center;">Belum ada data mahasiswa.</td></tr>';
+                    }
+                    ?>
+=======
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 - Kelas Web Programming</p>
+        <p id="modeStatus">Mode Saat Ini: Light Mode</p>
+<<<<<<< HEAD
+        <p class="logged-user">Logged in as: <strong><?php echo htmlspecialchars($username); ?></strong></p>
+    </footer>
+
+    <script src="script/script.js"></script>
+</body>
+</html>
+<?php
+// Menutup koneksi database di akhir file
+mysqli_close($koneksi);
+?>
+=======
+        <!-- === BAGIAN BARU: Logged in info === -->
+        <p class="logged-user">
+            Logged in as: <strong><?php echo $username; ?></strong>
+        </p>
+    </footer>
+
+    <script src="script/script.js"></script>
+    <script src="script/handleAPI.js"></script>
+
+</body>
+</html>
+>>>>>>> a2305797b5a4c563703b00523155256dd50145e4
